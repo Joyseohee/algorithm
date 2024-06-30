@@ -1,17 +1,39 @@
+class Stack:
+    def __init__(self):
+        self.items = []
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        if not self.is_empty():
+            return self.items.pop()
+        else:
+            raise IndexError("pop from empty stack")
+
+    def peek(self):
+        if not self.is_empty():
+            return self.items[-1]
+        else:
+            raise IndexError("peek from empty stack")
+
+    def size(self):
+        return len(self.items)
+
+
 class Solution:
     def isValid(self, s: str) -> bool:
-        stack = []
-        closeToOpen = {")": "(", "]": "[", "}": "{"}
+        stack = Stack()
+        matching_bracket = {')': '(', '}': '{', ']': '['}
 
-        for c in s:
-            # check if c is closing bracket
-            if c in closeToOpen:
-                # check if character on top of stack is matching opening bracket
-                if stack and stack[-1] == closeToOpen[c]:
-                    stack.pop()
-                else:
+        for char in s:
+            if char in matching_bracket.values():
+                stack.push(char)
+            elif char in matching_bracket.keys():
+                if stack.is_empty() or stack.pop() != matching_bracket[char]:
                     return False
-            else:
-                stack.append(c)
-            
-        return True if not stack else False
+
+        return stack.is_empty()
