@@ -1,8 +1,7 @@
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        # 뒤에서부터 오면서 남겨야하면 담고 아니면 포인터 옮기기
-        if len(nums) < 2:
-            return len(nums)
+        # if len(nums) < 2:
+            # return len(nums)
 
         k = 1
 
