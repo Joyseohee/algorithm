@@ -1,20 +1,11 @@
 class Solution:
     def findDifference(self, nums1: List[int], nums2: List[int]) -> List[List[int]]:
-        hash1= set()
-        hash2= set()
-        
-        for num in nums1:
-            hash1.add(num)
-
-        for num in nums2:
-            hash2.add(num)
-        
-        arr1=[]
-        arr2=[]
-
-        hash_c = hash1 & hash2
-        
-        arr1 = hash1 - hash_c
-        arr2 = hash2 - hash_c
-
-        return [arr1, arr2]
+        # Convert both lists to sets
+        set1 = set(nums1)
+        set2 = set(nums2)
+        # Get the elements that are in set1 but not in set2
+        ans1 = list(set1 - set2)
+        # Get the elements that are in set2 but not in set1
+        ans2 = list(set2 - set1)
+        # Return the results as a list of two lists
+        return [ans1, ans2]
