@@ -2,7 +2,7 @@ n,m,k=map(int,input().split())
 k=k-1
 grid=[list(map(int,input().split())) for _ in range(n)]
 
-min_row = n
+min_row = n-1
 
 for j in range(k,k+m):
     for i in range(n):
