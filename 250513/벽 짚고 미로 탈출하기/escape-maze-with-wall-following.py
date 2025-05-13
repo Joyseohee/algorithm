@@ -17,7 +17,7 @@ def is_wall(x,y):
     return in_range(x,y) and grid[y][x]=="#"
 
 def move():
-    global x,y,dirc,grid,visited,t
+    global x,y,dirc,grid,t
 
     dxs,dys=[1,0,-1,0],[0,1,0,-1]
     
@@ -35,15 +35,13 @@ def move():
         t+=1
     else:
         rx,ry = nx + dxs[(dirc + 1) % 4], ny + dys[(dirc + 1) % 4]
-        if grid[ry][rx] == "#":
+        if is_wall(rx,ry):
             x,y=nx,ny
             t+=1
         else:
             x,y=rx,ry
             t+=2
             dirc = (dirc + 1) % 4
-
-
 
 while in_range(x,y):
     move()
