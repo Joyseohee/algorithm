@@ -23,7 +23,7 @@ def move():
     
     if visited[y][x][dirc]:
         print(-1)
-        sys.exit()
+        sys.exit(0)
 
     visited[y][x][dirc]=True
     nx,ny = x+dxs[dirc], y+dys[dirc]
