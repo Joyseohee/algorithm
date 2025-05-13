@@ -21,7 +21,7 @@ def move():
 
     dxs,dys=[1,0,-1,0],[0,1,0,-1]
     
-    if visited[y][x][dirc]:
+    if visited[y][x][dirc] or not in_range(x,y):
         print(-1)
         sys.exit(0)
 
