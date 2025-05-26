@@ -26,10 +26,10 @@ def move(d,p):
     
     for i in range(p):
         t+=1
-
+        #지나가기 직전에 현재 위치에 디렉션 표기
+        dir_grid[x][y] = d
         nx, ny = x + dx, y + dy
         if not in_range(nx, ny):
-            # print("OUT OF RANGE")
             return False
         
         if grid[nx][ny] == 2:
@@ -39,27 +39,21 @@ def move(d,p):
         # 꼬리를 옮기고 한칸 전진
         else:
             ls_dirc = dir_grid[lx][ly]
-            if ls_dirc != "":
-                ldx,ldy = directions[ls_dirc]
-                grid[lx][ly] = 0
-                lx, ly = lx + ldx, ly + ldy
+            ldx,ldy = directions[ls_dirc]
+            dir_grid[lx][ly] = ""
+            grid[lx][ly] = 0
+            lx, ly = lx + ldx, ly + ldy
             
         if grid[nx][ny] == 1:
-            # print("MEET")
             return False
-        
-        #지나가기 직전에 현재 위치에 디렉션 표기
-        dir_grid[x][y] = d
         
         #지나가기
         grid[nx][ny] = 1
         x, y = nx, ny
-        # print(f"i={i}, nx={nx}, ny={ny}")
-        # print("grid::" , grid)
-        # print("dir_grid::", dir_grid)
 
     return True
 
+grid[x][y] = 1
 for row, col in apples:
     grid[row-1][col-1] = 2
 
