@@ -29,10 +29,7 @@ def go(r, c, dirc):
         (1, 0), (0, -1), (-1, 0), (0, 1)
     ]
 
-    while True:
-        if not in_range(x, y):
-            return t
-
+    while in_range(x,y):
         if grid[x][y] != 0:
             dirc = change_dirc(grid[x][y], dirc)
 
@@ -44,14 +41,8 @@ def go(r, c, dirc):
 # 테두리 순회
 for i in range(n):
     max_time = max(go(0, i, 0), max_time)
-
-for i in range(n):
     max_time = max(go(i, n-1, 1), max_time)
-
-for i in range(n):
     max_time = max(go(n-1, i, 2), max_time)
-
-for i in range(n):
     max_time = max(go(i, 0, 3), max_time)
 
 print(max_time)
