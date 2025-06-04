@@ -12,7 +12,7 @@ def in_range(x, y):
 
 def move():
     next_pos = [[0 for _ in range(n)] for _ in range(n)]
-    dxs, dys = [-1, 0, 1, 0], [0, 1, 0, -1]
+    dxs, dys = [-1, 1, 0, 0], [0, 0, 1, -1]
 
     for x in range(n):
         for y in range(n):
@@ -28,7 +28,6 @@ def move():
                     mnx, mny = nx, ny
                 if grid[nx][ny] > grid[mnx][mny]:
                     mnx, mny = nx, ny
-            
             next_pos[mnx][mny] +=1
     
     for i in range(n):
