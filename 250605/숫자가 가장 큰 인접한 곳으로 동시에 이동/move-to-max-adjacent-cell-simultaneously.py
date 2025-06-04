@@ -28,6 +28,9 @@ def move():
                     mnx, mny = nx, ny
                 if grid[nx][ny] > grid[mnx][mny]:
                     mnx, mny = nx, ny
+
+            if mnx == -1:
+                continue
             next_pos[mnx][mny] +=1
     
     for i in range(n):
