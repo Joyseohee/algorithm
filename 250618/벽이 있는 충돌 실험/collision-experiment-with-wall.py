@@ -1,64 +1,49 @@
 t = int(input())
-directions = {
-        "U" : (-1, 0),
-        "D" : (1, 0),
-        "L" : (0, -1),
-        "R" : (0, 1)
+
+DIRECTIONS = {
+    "U": (-1, 0),
+    "D": (1, 0),
+    "L": (0, -1),
+    "R": (0, 1)
 }
 
-change_dirc = {
-        "U" : "D",
-        "D" : "U",
-        "L" : "R",
-        "R" : "L"
+REVERSE_DIRECTION = {
+    "U": "D",
+    "D": "U",
+    "L": "R",
+    "R": "L"
 }
 
-def in_range(x, y):
-    return 0 <= x < n and 0 <= y <n
+def in_range(x, y, n):
+    return 0 <= x < n and 0 <= y < n
 
-def put_bids(marbles):
-    x, y, d = tuple(input().split())
-    x, y = int(x) - 1, int(y) - 1
+def read_marble_input():
+    x, y, d = input().split()
+    return (int(x) - 1, int(y) - 1, d)
 
-    marbles.append((x,y,d))
-
-def move(marble):
+def move(marble, n):
     x, y, d = marble
-    dx, dy = directions[d]
+    dx, dy = DIRECTIONS[d]
     nx, ny = x + dx, y + dy
-    if in_range(nx, ny):
+    if in_range(nx, ny, n):
         return (nx, ny, d)
     else:
-        return (x, y, change_dirc[d])
+        return (x, y, REVERSE_DIRECTION[d])
 
-def remove_duplicate(marbles):
-    bids = [[0 for _ in range(n)] for _ in range(n)]
-
+def remove_collided(marbles, n):
+    grid = [[0] * n for _ in range(n)]
     for x, y, _ in marbles:
-        bids[x][y] += 1
-        
-    return [
-        marble
-        for marble in marbles
-        if bids[marble[0]][marble[1]] == 1
-    ]
+        grid[x][y] += 1
+    return [m for m in marbles if grid[m[0]][m[1]] == 1]
 
-
-def move_bids(marbles):
-    for i, marble in enumerate(marbles):
-        marbles[i] = move(marble)
-    
-    return remove_duplicate(marbles)
-
-for i in range(t):
-    n, m = map(int, input().split())
-    marbles = []
-
-    for _ in range(m):
-        put_bids(marbles)
-
+def simulate(marbles, n):
     for _ in range(2 * n):
-        marbles = move_bids(marbles)
-        
+        marbles = [move(m, n) for m in marbles]
+        marbles = remove_collided(marbles, n)
+    return marbles
 
-    print(len(marbles))
+for _ in range(t):
+    n, m = map(int, input().split())
+    marbles = [read_marble_input() for _ in range(m)]
+    result = simulate(marbles, n)
+    print(len(result))
