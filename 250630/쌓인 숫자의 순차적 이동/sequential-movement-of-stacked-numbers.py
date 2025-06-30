@@ -38,8 +38,12 @@ for number in numbers:
                 for dx, dy in zip(dxs, dys):
                     nx, ny = i + dx, j + dy
                     if in_range(nx, ny) and len(grid[nx][ny])!=0:
-                        if (mx == i and my == j) or grid[nx][ny] > grid[mx][my]:
+                        if (mx == i and my == j) or  max(grid[nx][ny]) > max(grid[mx][my]):
                             mx, my = nx, ny
+        
+                    
+
+
                 # 그위에 올린다
                 while tmp_stack :
                     grid[mx][my].append(tmp_stack.pop())
