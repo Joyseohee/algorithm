@@ -15,4 +15,5 @@ def dfs(vertex):
             dfs(node)
 
 dfs(1)
-print(sum(visited) - 1)
+total = sum(visited)
+print(total - 1 if total > 1 else 0)
