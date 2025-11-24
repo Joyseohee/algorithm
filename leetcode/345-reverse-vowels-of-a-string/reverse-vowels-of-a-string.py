@@ -8,20 +8,15 @@ class Solution:
         vowels = set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'])
 
         while start < end:
-            if str_arr[start] in vowels and str_arr[end] in vowels:
-                str_arr[start], str_arr[end] = str_arr[end], str_arr[start]
-                start += 1
-                end -= 1
-
-            elif str_arr[start] in vowels and str_arr[end] not in vowels:
-                end -= 1
-
-            elif str_arr[start] not in vowels and str_arr[end] in vowels:
+            while start < end and str_arr[start] not in vowels :
                 start += 1
 
-            else:
-                start += 1
+            while start < end and str_arr[end] not in vowels :
                 end -= 1
+
+            str_arr[start], str_arr[end] = str_arr[end], str_arr[start]
+            start += 1
+            end -= 1
                 
 
         return "".join(str_arr)
