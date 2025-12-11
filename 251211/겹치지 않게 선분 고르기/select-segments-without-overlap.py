@@ -17,7 +17,6 @@ def is_overlap(a, b):
 
 def dfs(idx):
     global answer
-    print(idx, chosen)
 
     # 남은 걸 전부 골라도 최댓값을 못 넘으면 가지치기
     if len(chosen) + (N - idx) <= answer:
