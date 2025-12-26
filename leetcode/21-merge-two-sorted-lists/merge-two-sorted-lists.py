@@ -5,19 +5,25 @@
 #         self.next = next
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        # list1 = n, list2 = m -> O(N)
-        # 메모리 추가 사용 -> O(N)
+        # 재귀 풀이 방식
+        # 1 -> 병합된 정렬된 리스트를 next에 붙여준다
+        # print(f"list1 = {list1}")
+        # print(f"list2 = {list2}")
 
-        # stop 조건 -> 두 list 중 하나가 끝에 도달할 때
+        # 시간 복잡도 list1 :n/ list2: m -> n + m -> O(N)
+        # 공간 복잡도 O(1)
+
+        # stop 조건 -> 하나의 리스트의 끝에 도달했다면 return
         if not list1:
             return list2
+
         if not list2:
             return list1
 
-        # 재귀 호출
+        # 호출 -> 작은 수를 먼저 두고 그 뒤에 이미 정렬된 병합 리스트가 있다고 가정하고 붙인다
         if list1.val < list2.val:
             list1.next = self.mergeTwoLists(list1.next, list2)
             return list1
         else:
             list2.next = self.mergeTwoLists(list1, list2.next)
-            return list2        
+            return list2      
