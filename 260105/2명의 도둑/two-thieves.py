@@ -28,7 +28,7 @@ def find_max_value(arr, limit):
         dfs(idx + 1, curr_w + arr[idx], curr_v + (arr[idx] ** 2))
 
         # 현재 idx 요소 불포함
-        dfs(idx + 1, curr_w + arr[idx], curr_v)
+        dfs(idx + 1, curr_w, curr_v)
 
     dfs(0, 0, 0)
     return max_val
