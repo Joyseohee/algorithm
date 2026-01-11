@@ -5,22 +5,14 @@
 #         self.next = next
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        if not head:
-            return None
+        if not head or not head.next:
+            return head
 
-        prev = None
-        curr = head
+        # 이전까지 역순으로 정렬된 리스트 반환
+        new_head = self.reverseList(head.next)
 
-        while curr:
-            next_tmp = curr.next
+        head.next.next = head
+        head.next = None
 
-            # 방향 전환
-            curr.next = prev
-            
-            # 다음 작업을 위한 저장 값 변경
-            prev = curr
-            curr = next_tmp
-
-        return prev
-
+        return new_head
 
