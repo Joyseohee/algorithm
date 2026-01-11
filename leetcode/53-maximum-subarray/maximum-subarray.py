@@ -1,20 +1,42 @@
-import sys
-
 class Solution:
-    def maxSubArray(self, nums):
-        # 초기값 설정: 첫 번째 원소로 시작
-        max_sum = nums[0]      # 전체 최대 합 (우리가 반환할 결과)
-        current_sum = nums[0]  # 현재 부분 배열의 합
+    def maxSubArray(self, nums: list[int]) -> int:
+        return self.helper(nums, 0, len(nums) - 1)
 
-        # 두 번째 원소부터 끝까지 순회
-        for i in range(1, len(nums)):
-            # 로직: (이전 합 + 현재 숫자) vs (현재 숫자) 중 큰 것을 선택
-            # 즉, 이전 합이 마이너스여서 손해라면 현재 숫자부터 새로 시작함
-            current_sum = max(nums[i], current_sum + nums[i])
-            
-            # 현재 계산된 합이 지금까지의 최대 합보다 크다면 갱신
-            max_sum = max(max_sum, current_sum)
-            
-        return max_sum
+    def helper(self, nums, left, right):
+        # Base Case: 원소가 하나만 남았을 때
+        if left == right:
+            return nums[left]
         
+        mid = (left + right) // 2
         
+        # 1. 왼쪽 절반에서의 최대 합 (재귀)
+        left_max = self.helper(nums, left, mid)
+        
+        # 2. 오른쪽 절반에서의 최대 합 (재귀)
+        right_max = self.helper(nums, mid + 1, right)
+        
+        # 3. 가운데를 걸치는 부분의 최대 합 (별도 계산)
+        cross_max = self.cross_sum(nums, left, right, mid)
+        
+        # 세 가지 경우 중 가장 큰 값 반환
+        return max(left_max, right_max, cross_max)
+
+    def cross_sum(self, nums, left, right, mid):
+        # [중심 -> 왼쪽]으로 가면서 최대 합 구하기
+        # 주의: 반드시 mid를 포함해서 왼쪽으로 뻗어나가야 함
+        left_sub_sum = float('-inf')
+        curr_sum = 0
+        for i in range(mid, left - 1, -1):
+            curr_sum += nums[i]
+            left_sub_sum = max(left_sub_sum, curr_sum)
+            
+        # [중심 -> 오른쪽]으로 가면서 최대 합 구하기
+        # 주의: 반드시 mid+1을 포함해서 오른쪽으로 뻗어나가야 함
+        right_sub_sum = float('-inf')
+        curr_sum = 0
+        for i in range(mid + 1, right + 1):
+            curr_sum += nums[i]
+            right_sub_sum = max(right_sub_sum, curr_sum)
+            
+        # 두 방향의 최대 합을 더해서 반환
+        return left_sub_sum + right_sub_sum
